@@ -30,6 +30,7 @@ public class PortablePixelMapper {
 				
 		if (verifyArguments(args))
 		{
+			generateFile(args[0], Integer.parseInt(args[1]),  Integer.parseInt(args[2]), args[3]);
 			
 		}
 		else
@@ -45,7 +46,7 @@ public class PortablePixelMapper {
 	 * @param arguments
 	 * @return
 	 */
-	public static boolean verifyArguments(String[] arguments)
+	private static boolean verifyArguments(String[] arguments)
 	{
 		boolean valid = false;			
 		
@@ -63,7 +64,7 @@ public class PortablePixelMapper {
 	 * @param str
 	 * @return
 	 */
-	public static boolean isNumeric(String str)  
+	private static boolean isNumeric(String str)  
 	{  
 	  try  
 	  {  
@@ -76,4 +77,21 @@ public class PortablePixelMapper {
 	  return true;  
 	}
 
+	
+	private static void generateFile( String SVGfileName, int width, int height, String PPMfileName)
+	{
+		try
+		{
+			SVG svg= new SVG(SVGfileName);
+			PPM ppm= new PPM(width, height);			
+			svg.drawToPixMap(ppm);
+			
+			ppm.writeToFile(PPMfileName);
+			
+		}
+		catch (Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+	}
 }
